@@ -1,6 +1,6 @@
 {
-  "name": "puppet-openldap",
-  "version": "0.1.0",
+  "name": "jjuarez-openldap",
+  "version": "0.1.1",
   "author": "Javier Juarez <javier.juarez@gmail.com>",
   "summary": "OpenLDAP 2.4 setup support (not OLC)",
   "license": "Apache-2.0",
@@ -34,4 +34,3 @@
     }
   ]
 }
-

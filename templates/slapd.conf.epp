@@ -1,0 +1,145 @@
+<%|
+  Array[String]        $schema_files,
+  String               $log_level,
+  Stdlib::Absolutepath $slave_config_file,
+|%>
+###############################################################################
+# Schemas
+<% $schema_files.each |$schema| { -%>
+include <%= $schema %>
+<% } -%>
+
+
+###############################################################################
+# General settings
+pidfile <%= $::openldap::pid_file %>
+argsfile <%= $::openldap::args_file %>
+
+# Logs
+loglevel <%= $log_level %>
+
+# Resource policies
+sizelimit <%= $::openldap::size_limit %>
+timelimit <%= $::openldap::time_limit %>
+
+# Process
+threads <%= $::openldap::threads %>
+tool-threads <%= $::openldap::tool_threads %>
+
+###############################################################################
+# Modules
+modulepath <%= $::openldap::module_directory %>
+moduleload memberof.la
+moduleload ppolicy.la
+moduleload syncprov.la
+
+
+<% if $::openldap::tls_support { -%>
+###############################################################################
+# TLS support
+TLSCACertificateFile  <%= $::openldap::tls_configuration['ca_certificate_file'] %>
+TLSCertificateFile    <%= $::openldap::tls_configuration['certificate_file'] %>
+TLSCertificateKeyFile <%= $::openldap::tls_configuration['certificate_key_file'] %>
+<% if $::openldap::tls_configuration['cipher_suite'] { -%>
+TLSCipherSuite        <%= $::openldap::tls_configuration['cipher_suite'] %>
+<%- } -%>
+TLSVerifyClient       <%= $::openldap::tls_configuration['verify_client'] %>
+<% } -%>
+
+
+###############################################################################
+# The On-line Configuration Database
+database config
+rootdn cn=<%= $::openldap::config_dn %>,cn=config
+rootpw <%= $::openldap::config_password %>
+
+access to dn.children="cn=config"
+  by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" manage
+  by * none
+
+access to dn.subtree="cn=config"
+  by users read
+  by * none
+
+
+###############################################################################
+# The Monitor DataBase
+database monitor
+rootdn cn=<%= $::openldap::monitor_dn %>,cn=Monitor
+rootpw <%= $::openldap::monitor_password %>
+
+access to dn.children="cn=Monitor"
+  by dn.exact="gidNumber=0+uidNumber=0,cn=peercred,cn=external,cn=auth" read
+  by * none
+
+access to dn.subtree="cn=Monitor"
+  by users read
+  by * none
+
+
+###############################################################################
+# The main DataBase
+database mdb
+directory <%= $::openldap::data_directory %>
+suffix <%= $::openldap::suffix %>
+rootdn cn=<%= $::openldap::root_dn %>,<%= $::openldap::suffix %>
+rootpw <%= $::openldap::root_password %>
+maxsize <%= $::openldap::max_database_size %>
+
+
+##
+# ACLs
+access to attrs=userPassword
+  by self write
+  by anonymous auth
+  by * none
+
+access to dn.subtree="<%= $::openldap::suffix %>"
+  by group.exact="cn=<%= $::openldap::ldapadmins_dn %>,<%= $::openldap::suffix %>" write
+  by * none
+
+access to *
+  by dn.exact="cn=<%= $::openldap::replication_dn %>,<%= $::openldap::suffix %>" read
+  by self write
+  by anonymous auth
+  by users read
+  by * none
+
+
+###############################################################################
+# Indexes
+index objectClass eq,pres
+index entryUUID eq
+index entryCSN eq
+index uid eq,sub
+index uidNumber eq
+index gidNumber eq
+index memberOf eq
+index memberUid eq,sub,subinitial
+index uniqueMember eq
+index mail eq,sub,subinitial
+index cn eq,sub,subinitial
+index givenName eq,sub,subinitial
+index sn eq,sub,subinitial
+
+
+##
+# Overlays
+overlay memberof
+overlay ppolicy
+
+<% unless $::openldap::slave { -%>
+##
+# Overlay sync provider (master) configuration
+overlay syncprov
+syncprov-checkpoint <%= $::openldap::master_configuration['syncprov_checkpoint'] %>
+syncprov-sessionlog <%= $::openldap::master_configuration['syncprov_sessionlog'] %>
+<% } -%>
+
+
+<% if $::openldap::slave { -%>
+###############################################################################
+# Configuration for the replica consumers
+include <%= $slave_config_file %>
+<% } -%>
+

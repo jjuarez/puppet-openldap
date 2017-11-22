@@ -1,0 +1,27 @@
+<%|
+  String $rid,
+  String $provider,
+  String $type,
+  String $interval,
+  String $search_base,
+  String $scope,
+  String $bind_dn,
+  String $credentials,
+  String $bind_method,
+  String $retry,
+  String $schema_checking,
+|%>
+##
+# Replication config
+syncrepl rid=<%= $rid %>
+  provider=<%= $provider %>
+  type=<%= $type %>
+  interval=<%= $interval %>
+  searchbase="<%= $search_base %>"
+  scope=<%= $scope %>
+  binddn="<%= $bind_dn %>"
+  credentials=<%= $credentials %>
+  bindmethod=<%= $bind_method %>
+  retry="<%= $retry %>"
+  schemachecking=<%= $schema_checking %>
+

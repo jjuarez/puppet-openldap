@@ -1,0 +1,7 @@
+<%|
+  String $slapd_urls,
+  String $slapd_options = "",
+|%>
+SLAPD_URLS="<%= $slapd_urls %>"
+SLAPD_OPTIONS="<%= $slapd_options %>"
+

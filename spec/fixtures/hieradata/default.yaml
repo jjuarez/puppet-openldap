@@ -1,0 +1,15 @@
+---
+  openldap::suffix: 'dc=fon,dc=com'
+  openldap::root_password: 'supersecret'
+  openldap::config_password: 'secretconfig'
+  openldap::monitor_password: 'secretmonitor'
+  openldap::slave_rid: '000'
+  openldap::slave_configuration:
+    provider: 'ldaps://ldapmaster-pro-1.fon.ofi'
+    type: 'refreshOnly'
+    interval: '00:00:00:10'
+    scope: 'sub'
+    bind_method: 'simple'
+    retry: '300 +'
+    schema_checking: 'on'
+

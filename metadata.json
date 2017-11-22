@@ -1,0 +1,36 @@
+{
+  "name": "puppet-openldap",
+  "version": "0.1.0",
+  "author": "Javier Juarez <javier.juarez@gmail.com>",
+  "summary": "OpenLDAP 2.4 setup support",
+  "license": "Apache-2.0",
+  "source": "https://github.com/jjuarez/puppet-openldap",
+  "project_page": "https://github.com/jjuarez/puppet-openldap",
+  "issues_url": "https://github.com/jjuarez/puppet-openldap",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_requirement": ">= 4.0.0 <5.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "ScientificLinux",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "RedHat",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    },
+    {
+      "operatingsystem": "CentOS",
+      "operatingsystemrelease": [
+        "7"
+      ]
+    }
+  ]
+}

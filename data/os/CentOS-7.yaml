@@ -1,0 +1,14 @@
+---
+  openldap::config_directory: /etc/openldap
+  openldap::data_directory: /var/lib/ldap
+  openldap::module_directory: /usr/lib64/openldap
+  openldap::config_file: slapd.conf
+  openldap::system_config_file: /etc/sysconfig/slapd
+  openldap::pid_file: /var/run/openldap/slapd.pid
+  openldap::args_file: /var/run/openldap/slapd.args
+  openldap::user: ldap
+  openldap::group: ldap
+  openldap::package_name: openldap-servers
+  openldap::service_name: slapd
+  openldap::version: ensure
+

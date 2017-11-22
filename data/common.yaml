@@ -1,0 +1,29 @@
+---
+  openldap::schemas:
+    - core.schema
+    - cosine.schema
+    - nis.schema
+    - inetorgperson.schema
+    - openldap.schema
+    - ppolicy.schema
+  openldap::log_level:
+    - stats
+  openldap::version: 'ensure'
+  openldap::root_dn: 'admin'
+  openldap::config_dn: 'config'
+  openldap::monitor_dn: 'monitor'
+  openldap::replication_dn: 'replicator'
+  openldap::replication_password: ''
+  openldap::ldapadmins_dn: 'ldapadmins'
+  openldap::max_database_size: 2147483648
+  openldap::threads: 4
+  openldap::tool_threads: 2
+  openldap::size_limit: unlimited
+  openldap::time_limit: unlimited
+  openldap::tls_support: false
+  openldap::tls_configuration: {}
+  openldap::slave: true
+  openldap::slave_rid: null
+  openldap::slave_configuration: {}
+  openldap::master_configuration: {}
+

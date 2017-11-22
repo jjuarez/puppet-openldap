@@ -1,0 +1,7 @@
+fixtures:
+  forge_modules:
+    stdlib:
+      repo: "puppetlabs/stdlib"
+      ref: "4.16.0"
+  symlinks:
+    openldap: "#{source_dir}"

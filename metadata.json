@@ -2,11 +2,11 @@
   "name": "puppet-openldap",
   "version": "0.1.0",
   "author": "Javier Juarez <javier.juarez@gmail.com>",
-  "summary": "OpenLDAP 2.4 setup support",
+  "summary": "OpenLDAP 2.4 setup support (not OLC)",
   "license": "Apache-2.0",
   "source": "https://github.com/jjuarez/puppet-openldap",
   "project_page": "https://github.com/jjuarez/puppet-openldap",
-  "issues_url": "https://github.com/jjuarez/puppet-openldap",
+  "issues_url": "https://github.com/jjuarez/puppet-openldap/issues",
   "dependencies": [
     {
       "name": "puppetlabs-stdlib",
@@ -34,3 +34,4 @@
     }
   ]
 }
+

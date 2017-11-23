@@ -4,9 +4,6 @@ pipeline:
     commands:
       - bundle install
       - bundle exec rake spec
-      - bundle exec rake build
-    volumes:
-      - $(pwd):/module
   notify:
     image: plugins/slack
     channel: home_wifi_backend

@@ -1,0 +1,12 @@
+---
+pipeline:
+  build:
+    image: jjuarez/puppet-rspec:latest
+    commands:
+      - bundle exec rake spec
+      - bundle exec rake build
+  notify:
+    image: plugins/slack
+    channel: home_wifi_backend
+    username: javier.juarez@fon.com
+
